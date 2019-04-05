@@ -1,0 +1,17 @@
+package codesquad;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+
+/**
+ * Created by Geon Hee Sung.
+ * Date: 2019-04-05
+ * Time: 오후 1:14
+ */
+@Controller
+public class HomeController {
+    @GetMapping("/")
+    public String home() {
+        return "index";
+    }
+}
