@@ -1,4 +1,4 @@
-package codesquad.domain.user;
+package codesquad.user;
 
 /**
  * Created by Geon Hee Sung.
