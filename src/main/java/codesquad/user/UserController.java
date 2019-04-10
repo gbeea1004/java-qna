@@ -6,6 +6,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpSession;
+
 @Controller
 @RequestMapping("/users")
 public class UserController {
@@ -64,5 +66,22 @@ public class UserController {
         user.update(updateUser);
         userRepository.save(user);
         return "redirect:/users/list";
+    }
+
+    @GetMapping("/login")
+    public String loginForm() {
+        return "user/login";
+    }
+
+    @PostMapping("/login")
+    public String login(String userId, String password, HttpSession httpSession) {
+        User maybeUser = userRepository.findByUserId(userId);
+        if (maybeUser != null) {
+            if (maybeUser.checkPassword(password)) {
+                httpSession.setAttribute("loginUser", maybeUser);
+                return "redirect:/";
+            }
+        }
+        return "user/login_failed";
     }
 }
