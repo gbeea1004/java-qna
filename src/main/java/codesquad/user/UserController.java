@@ -36,6 +36,22 @@ public class UserController {
         return mav;
     }
 
+    @GetMapping("{id}/checkForm")
+    public String userCheckForm(@PathVariable Long id, Model model) {
+        model.addAttribute("user", userRepository.findById(id).orElseThrow(IllegalArgumentException::new));
+        return "user/checkUser";
+    }
+
+    @PostMapping("/{id}/checkUser")
+    public String checkPassword(@PathVariable Long id, String password, Model model) {
+        User user = userRepository.findById(id).orElseThrow(IllegalArgumentException::new);
+        if (user.checkPassword(password)) {
+            return "redirect:/users/" + id + "/form";
+        }
+        model.addAttribute("user", user);
+        return "user/checkUser";
+    }
+
     @GetMapping("/{id}/form")
     public String updateForm(@PathVariable Long id, Model model) {
         model.addAttribute("user", userRepository.findById(id).orElseThrow(IllegalArgumentException::new));

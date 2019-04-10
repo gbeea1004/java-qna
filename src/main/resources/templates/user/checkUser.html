@@ -1,0 +1,20 @@
+{{#partial "content"}}
+<div class="container" id="main">
+   <div class="col-md-6 col-md-offset-3">
+      <div class="panel panel-default content-main">
+          {{#user}}
+          <form name="check-user" method="post" action="/users/{{id}}/checkUser">
+              <div class="form-group">
+                  <label for="password">현재 비밀번호를 입력하세요.</label>
+                  <input class="password" class="form-control" id="password" name="password" placeholder="Password" />
+              </div>
+              <button type="submit" class="btn btn-success clearfix pull-right">회원정보수정</button>
+              <div class="clearfix" />
+          </form>
+          {{/user}}
+        </div>
+    </div>
+</div>
+{{/partial}}
+
+{{> base}}
