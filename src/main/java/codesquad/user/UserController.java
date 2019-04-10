@@ -3,10 +3,7 @@ package codesquad.user;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -37,5 +34,19 @@ public class UserController {
         ModelAndView mav = new ModelAndView("user/profile");
         mav.addObject("user", userRepository.findById(id).get());
         return mav;
+    }
+
+    @GetMapping("/{id}/form")
+    public String updateForm(@PathVariable Long id, Model model) {
+        model.addAttribute("user", userRepository.findById(id).orElseThrow(IllegalArgumentException::new));
+        return "user/updateForm";
+    }
+
+    @PutMapping("/{id}")
+    public String update(@PathVariable Long id, User updateUser) {
+        User user = userRepository.findById(id).orElseThrow(IllegalArgumentException::new);
+        user.update(updateUser);
+        userRepository.save(user);
+        return "redirect:/users/list";
     }
 }
