@@ -2,7 +2,7 @@
 <div class="container" id="main">
     {{#question}}
     <div class="col-md-12 col-sm-12 col-lg-12">
-        <div class="alert alert-danger" role="alert">게시글 작성자만 수정할 수 있습니다.</div>
+        <div class="alert alert-danger" role="alert">게시글 작성자만 작업할 수 있습니다.</div>
         <div class="panel panel-default">
           <header class="qna-header">
               <h2 class="qna-title">{{title}}</h2>
@@ -30,7 +30,7 @@
                               <a class="link-modify-article" href="/questions/{{id}}/form">수정</a>
                           </li>
                           <li>
-                              <form class="form-delete" action="/questions/423" method="POST">
+                              <form class="form-delete" action="/questions/{{id}}" method="POST">
                                   <input type="hidden" name="_method" value="DELETE">
                                   <button class="link-delete-article" type="submit">삭제</button>
                               </form>

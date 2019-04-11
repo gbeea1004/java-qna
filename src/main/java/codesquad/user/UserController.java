@@ -84,4 +84,10 @@ public class UserController {
         }
         return "user/login_failed";
     }
+
+    @GetMapping("/logout")
+    public String logout(HttpSession httpSession) {
+        httpSession.removeAttribute("loginUser");
+        return "redirect:/";
+    }
 }

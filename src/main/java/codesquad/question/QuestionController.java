@@ -51,7 +51,7 @@ public class QuestionController {
             return "qna/updateForm";
         }
         model.addAttribute("question", question);
-        return "qna/update_failed";
+        return "qna/work_failed";
     }
 
     @PutMapping("/{id}")
@@ -59,5 +59,17 @@ public class QuestionController {
         Question question = questionRepository.findById(id).orElseThrow(IllegalArgumentException::new);
         questionRepository.save(question.update(updateQuestion));
         return "redirect:/";
+    }
+
+    @DeleteMapping("/{id}")
+    public String delete(@PathVariable Long id, HttpSession httpSession, Model model) {
+        User loginUser = (User) httpSession.getAttribute("loginUser");
+        Question question = questionRepository.findById(id).orElseThrow(IllegalArgumentException::new);
+        if (question.isSameWriter(loginUser)) {
+            questionRepository.delete(question);
+            return "redirect:/";
+        }
+        model.addAttribute("question", question);
+        return "qna/work_failed";
     }
 }
