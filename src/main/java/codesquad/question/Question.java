@@ -1,5 +1,7 @@
 package codesquad.question;
 
+import codesquad.user.User;
+
 import javax.persistence.*;
 
 @Entity
@@ -50,5 +52,15 @@ public class Question {
 
     public void setContents(String contents) {
         this.contents = contents;
+    }
+
+    public boolean isSameWriter(User loginUser) {
+        return this.writer.equals(loginUser.getUserId());
+    }
+
+    public Question update(Question updateQuestion) {
+        this.title = updateQuestion.title;
+        this.contents = updateQuestion.contents;
+        return this;
     }
 }
